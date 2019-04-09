@@ -30,3 +30,13 @@ kmeans = KMeans(n_clusters=3, random_state=0).fit(dataset.loc[:, ['total_absence
 cluster_map = pd.DataFrame()
 cluster_map['data_index'] = dataset.index.values
 cluster_map['cluster'] = kmeans.labels_
+
+# clusters
+c1 = cluster_map[cluster_map.cluster == 0]
+c2 = cluster_map[cluster_map.cluster == 1]
+c3 = cluster_map[cluster_map.cluster == 2]
+
+# students from the clusters
+students1 = dataset.iloc[c1['data_index']]
+students2 = dataset.iloc[c2['data_index']]
+students3 = dataset.iloc[c3['data_index']]
