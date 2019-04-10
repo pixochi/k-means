@@ -37,14 +37,10 @@ dataset[absence_columns_indexes] = (dataset[absence_columns_indexes]
 absence_columns = dataset[absence_columns_indexes]
 dataset['absence_mean_per_student'] = absence_columns.mean(1)
 
-
 # identify clusters of students in the dataset
 from sklearn.cluster import KMeans
 
-kmean_input = pd.DataFrame({
-        'student_absence_mean': absence_mean_per_student,
-        'student_absence_total': dataset['total_absence']
-})
+kmean_input = pd.DataFrame(dataset[['absence_mean_per_student', 'total_absence']])
 
 kmeans = KMeans(n_clusters=3, random_state=0).fit(kmean_input)
 
@@ -61,3 +57,6 @@ c3 = cluster_map[cluster_map.cluster == 2]
 students1 = dataset.iloc[c1['data_index']]
 students2 = dataset.iloc[c2['data_index']]
 students3 = dataset.iloc[c3['data_index']]
+
+# make a plot for the clusters
+import matplotlib.pyplot as plt
